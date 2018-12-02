@@ -23,6 +23,8 @@ import java.io.OutputStream
 import java.nio.file.Files.size
 import android.speech.RecognizerIntent
 import android.util.Log
+import android.view.View
+import android.widget.Button
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -52,9 +54,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 } else {
                     val btj =  BTJ();
                     btj.sendData("0")
-                  /*  val enableVoice = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-                    startActivityForResult(enableVoice, RESULT_SPEECH);*/
-                    Snackbar.make(view, "No tienes reconocimiento de voz!", Snackbar.LENGTH_LONG).setAction("Action", null).show()
+
                 }
             }
 
@@ -117,14 +117,65 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
+
+    fun recVoz(view: View) {
+      //  setContentView(R.layout.activity_second)
+        val enableVoice = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+        startActivityForResult(enableVoice, RESULT_SPEECH);
+    }
+
+
+
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
             RESULT_SPEECH -> {
                 if (resultCode == Activity.RESULT_OK && null != data) {
                     val text = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-                    Log.i(TAG, "LONGITUD "+text.size)
+
                     Log.i(TAG, "datos long 1 "+text.get(0))
+
+
+                    val mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
+                    if (mBluetoothAdapter == null) {
+                        Log.i(TAG, "NO HAY BLUETOOTH  ")
+                    } else {
+                        if (!mBluetoothAdapter.isEnabled) {
+                            val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+                            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT)
+                        } else {
+                            val btj =  BTJ();
+                            var destino="";
+                            val frase = text.get(0).toLowerCase();
+
+                            if (frase.contains("baño"))
+                            {destino += "1"}
+
+                            if (frase.contains("cocina"))
+                            {destino += "2"}
+
+                            if (frase.contains("uno") || frase.contains("1") )
+                            {destino += "3"}
+
+                            if (frase.contains("dos") || frase.contains("2"))
+                            {destino += "4"}
+
+                            if (frase.contains("salón")|| frase.contains("salon"))
+                            {destino += "5"}
+
+                            if (frase.contains("pasillo"))
+                            {destino += "6"}
+
+                            if (destino.equals("")) {
+                                destino = "9";
+                                Log.i(TAG, "NO HAY destino valido")
+                            }
+                            Log.i(TAG, "Destinos seleccionados: " +destino )
+                            btj.sendData(destino)
+                            Log.i(TAG, "fin voz" )
+                        }
+                    }
 
                 }
             }
