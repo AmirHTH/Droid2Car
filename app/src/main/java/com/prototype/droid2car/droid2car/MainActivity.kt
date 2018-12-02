@@ -52,9 +52,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
                     startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT)
                 } else {
-                    val btj =  BTJ();
-                    btj.sendData("0")
 
+                    BTJ.getInstance().sendData("0")
                 }
             }
 
@@ -125,8 +124,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
 
-
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
@@ -145,7 +142,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                             val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
                             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT)
                         } else {
-                            val btj =  BTJ();
+
                             var destino="";
                             val frase = text.get(0).toLowerCase();
 
@@ -172,7 +169,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                                 Log.i(TAG, "NO HAY destino valido")
                             }
                             Log.i(TAG, "Destinos seleccionados: " +destino )
-                            btj.sendData(destino)
+                            BTJ.getInstance().sendData(destino)
                             Log.i(TAG, "fin voz" )
                         }
                     }

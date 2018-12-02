@@ -17,9 +17,7 @@ import java.util.UUID;
 
 import static android.support.v4.app.ActivityCompat.startActivityForResult;
 
-public class BTJ {
-
-
+public class BTJ  {
 
     BluetoothAdapter mBluetoothAdapter;
     BluetoothSocket mmSocket;
@@ -31,22 +29,36 @@ public class BTJ {
     int readBufferPosition;
     int counter;
     volatile boolean stopWorker;
-
     private static final String loc = "LOCALIZADOR1: ";
-
     private static final String TAG = loc;
 
+    private static BTJ instance=null;
 
-    public BTJ() throws IOException {
+    private BTJ() throws IOException {
 
         findBT();
         openBT();
+    }
+
+    private synchronized static void createInstance () throws IOException {
+
+        if (instance==null)
+            instance =  new BTJ();
+
+    }
+
+    public static BTJ getInstance () throws IOException {
+        if (instance==null) {
+            createInstance();
+        }
+        return instance;
     }
 
 
 
     private void findBT()
     {
+
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if(mBluetoothAdapter == null)
         {
@@ -165,8 +177,13 @@ public class BTJ {
         mmOutputStream.close();
         mmInputStream.close();
         mmSocket.close();
+
         Log.i(TAG,"Bluetooth Closed");
+
     }
+
+
+
 }
 
 
