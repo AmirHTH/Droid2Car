@@ -55,7 +55,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                   /*  val enableVoice = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
                     startActivityForResult(enableVoice, RESULT_SPEECH);*/
                     Snackbar.make(view, "No tienes reconocimiento de voz!", Snackbar.LENGTH_LONG).setAction("Action", null).show()
-
                 }
             }
 

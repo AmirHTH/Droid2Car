@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">Droid2Car</string>
+    <string name="app_name">Voice2Robot</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+    <string name="nav_header_title">Voice 2 Robot</string>
+    <string name="nav_header_subtitle">Controla tu robot con la voz</string>
+    <string name="nav_header_desc">Voice 2 Robot</string>
+    <string name="action_settings">Configuración</string>
 </resources>
