@@ -1,5 +1,6 @@
 package com.prototype.droid2car.droid2car
 
+import android.app.Activity
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
@@ -10,17 +11,54 @@ import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import android.bluetooth.BluetoothAdapter
+import android.content.Intent
+
+
+import java.util.*
+import android.bluetooth.BluetoothDevice
+import android.bluetooth.BluetoothSocket
+import java.io.InputStream
+import java.io.OutputStream
+import java.nio.file.Files.size
+import android.speech.RecognizerIntent
+import android.util.Log
+
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    val REQUEST_ENABLE_BT = 1
+    val RESULT_SPEECH =1
+    val TAG = "MAIN MAIN"
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+            Snackbar.make(view, "Parada de emergencia", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
+            val mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
+            if (mBluetoothAdapter == null) {
+                Snackbar.make(view, "NO SOPORTA BLUETOOTH", Snackbar.LENGTH_LONG)
+                    .setAction("Action ", null).show()
+            } else {
+                if (!mBluetoothAdapter.isEnabled) {
+                    val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+                    startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT)
+                } else {
+                    val btj =  BTJ();
+                    btj.sendData("0")
+                  /*  val enableVoice = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+                    startActivityForResult(enableVoice, RESULT_SPEECH);*/
+                    Snackbar.make(view, "No tienes reconocimiento de voz!", Snackbar.LENGTH_LONG).setAction("Action", null).show()
+
+                }
+            }
+
         }
 
         val toggle = ActionBarDrawerToggle(
@@ -80,5 +118,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            RESULT_SPEECH -> {
+                if (resultCode == Activity.RESULT_OK && null != data) {
+                    val text = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+                    Log.i(TAG, "LONGITUD "+text.size)
+                    Log.i(TAG, "datos long 1 "+text.get(0))
+
+                }
+            }
+        }
     }
 }
