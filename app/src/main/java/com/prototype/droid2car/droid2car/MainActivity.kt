@@ -25,6 +25,12 @@ import android.speech.RecognizerIntent
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.R.string.cancel
+import android.app.AlertDialog
+import android.content.DialogInterface
+import android.widget.EditText
+import android.view.LayoutInflater
+import android.widget.TextView
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -32,7 +38,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     val REQUEST_ENABLE_BT = 1
     val RESULT_SPEECH =1
     val TAG = "MAIN MAIN"
-
+    var zonas = "";
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -147,28 +153,60 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                             val frase = text.get(0).toLowerCase();
 
                             if (frase.contains("baño"))
-                            {destino += "1"}
+                            {
+                                destino += "1"
+                                zonas += "baño, "
+                            }
 
                             if (frase.contains("cocina"))
-                            {destino += "2"}
+                            {
+                                destino += "2"
+                                zonas +="cocina, "
+                            }
 
                             if (frase.contains("uno") || frase.contains("1") )
-                            {destino += "3"}
+                            {
+                                destino += "3"
+                                zonas += "habitación 1, "
+                            }
 
                             if (frase.contains("dos") || frase.contains("2"))
-                            {destino += "4"}
+                            {
+                                destino += "4"
+                                zonas += "habitación 2, "
+                            }
 
                             if (frase.contains("salón")|| frase.contains("salon"))
-                            {destino += "5"}
+                            {
+                                destino += "5"
+                                zonas += "salón, "
+                            }
 
                             if (frase.contains("pasillo"))
-                            {destino += "6"}
+                            {
+                                destino += "6"
+                                zonas += "pasillo, "
+                            }
+
+                            if (frase.contains("todo"))
+                            {
+                                destino += "123456"
+                                zonas += "todo, "
+                            }
 
                             if (destino.equals("")) {
                                 destino = "9";
                                 Log.i(TAG, "NO HAY destino valido")
                             }
                             Log.i(TAG, "Destinos seleccionados: " +destino )
+
+
+                            var textoZonas = zonas.subSequence(0, zonas.lastIndex -1)
+                            val textView: TextView = findViewById(R.id.zonaLimpia) as TextView
+                            textView.text = "Limpiando "+textoZonas
+                            zonas = ""
+
+
                             BTJ.getInstance().sendData(destino)
                             Log.i(TAG, "fin voz" )
                         }
@@ -178,4 +216,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         }
     }
+
+
+
 }
