@@ -194,6 +194,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                                 zonas += "todo, "
                             }
 
+                            if (frase.contains("toda"))
+                            {
+                                destino += "123456"
+                                zonas += "todo, "
+                            }
+
+                            if (frase.contains("dormitorio"))
+                            {
+                                destino += "34"
+                                zonas += "dormitorios, "
+                            }
+
                             if (destino.equals("")) {
                                 destino = "9";
                                 Log.i(TAG, "NO HAY destino valido")
