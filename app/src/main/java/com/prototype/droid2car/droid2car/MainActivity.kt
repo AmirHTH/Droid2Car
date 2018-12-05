@@ -19,6 +19,8 @@ import android.util.Log
 import android.view.View
 
 import android.widget.TextView
+import android.R.attr.fragment
+import android.support.v4.app.Fragment
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -87,17 +89,26 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
+
+        val fragmentManager = getSupportFragmentManager()
+        var fragment = Fragment()
+        var tag = ""
         when (item.itemId) {
             R.id.nav_ordenes -> {
-                setContentView(R.layout.activity_main)
-
-
-
+                tag = fragmentOrdenes.tag
+                fragment = fragmentManager.findFragmentByTag(tag) ?: fragmentOrdenes()
+                fragment.arguments
             }
             R.id.nav_estancias -> {
 
-                setContentView(R.layout.plano)
-      
+                tag = fragmentPlano.tag
+                 fragment = fragmentManager.findFragmentByTag(tag) ?: fragmentPlano()
+                fragment.arguments
+
+
+
+                //   setContentView(R.layout.plano)
+
 
                  Log.i("Content main main "," Main layout ");
 
@@ -113,10 +124,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
 
         }
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragmentArea, fragment, tag)
+                .addToBackStack(tag)
+                .commit()
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
     }
+
 
 
     fun recVoz(view: View) {
