@@ -14,22 +14,10 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 import android.bluetooth.BluetoothAdapter
 import android.content.Intent
 
-
-import java.util.*
-import android.bluetooth.BluetoothDevice
-import android.bluetooth.BluetoothSocket
-import java.io.InputStream
-import java.io.OutputStream
-import java.nio.file.Files.size
 import android.speech.RecognizerIntent
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.R.string.cancel
-import android.app.AlertDialog
-import android.content.DialogInterface
-import android.widget.EditText
-import android.view.LayoutInflater
+
 import android.widget.TextView
 
 
@@ -101,9 +89,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_ordenes -> {
-                // Handle the camera action
+                setContentView(R.layout.activity_main)
+
+
+
             }
             R.id.nav_estancias -> {
+
+                setContentView(R.layout.plano)
+      
+
+                 Log.i("Content main main "," Main layout ");
 
             }
             R.id.nav_historico -> {
@@ -167,13 +163,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                             if (frase.contains("uno") || frase.contains("1") )
                             {
                                 destino += "3"
-                                zonas += "habitación 1, "
+                                zonas += "cuarto 1, "
                             }
 
                             if (frase.contains("dos") || frase.contains("2"))
                             {
                                 destino += "4"
-                                zonas += "habitación 2, "
+                                zonas += "cuarto 2, "
                             }
 
                             if (frase.contains("salón")|| frase.contains("salon"))
@@ -194,13 +190,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                                 zonas += "todo, "
                             }
 
-                            if (frase.contains("toda"))
+                            if (frase.contains("todas"))
                             {
                                 destino += "123456"
                                 zonas += "todo, "
                             }
 
                             if (frase.contains("dormitorio"))
+                            {
+                                destino += "34"
+                                zonas += "dormitorios, "
+                            }
+
+                            if (frase.contains("cuartos"))
                             {
                                 destino += "34"
                                 zonas += "dormitorios, "
