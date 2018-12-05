@@ -17,6 +17,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <Button
         android:id="@+id/btn_mic"
         android:layout_width="133dp"
@@ -28,6 +29,7 @@
         android:background="@drawable/round_mic_black_48"
         android:backgroundTint="@android:color/background_dark"
         android:onClick="recVoz"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
         app:layout_constraintEnd_toEndOf="@+id/imageView2"
         app:layout_constraintStart_toStartOf="@+id/imageView2"

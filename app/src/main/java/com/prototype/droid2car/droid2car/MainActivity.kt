@@ -21,6 +21,7 @@ import android.view.View
 import android.widget.TextView
 import android.R.attr.fragment
 import android.support.v4.app.Fragment
+import kotlinx.android.synthetic.main.ordenes.*
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -95,19 +96,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         var tag = ""
         when (item.itemId) {
             R.id.nav_ordenes -> {
+
+                 btn_mic.visibility = View.VISIBLE
+
+
                 tag = fragmentOrdenes.tag
                 fragment = fragmentManager.findFragmentByTag(tag) ?: fragmentOrdenes()
                 fragment.arguments
             }
             R.id.nav_estancias -> {
 
+
+                btn_mic.visibility = View.GONE
                 tag = fragmentPlano.tag
                  fragment = fragmentManager.findFragmentByTag(tag) ?: fragmentPlano()
                 fragment.arguments
 
 
 
-                //   setContentView(R.layout.plano)
 
 
                  Log.i("Content main main "," Main layout ");
@@ -137,6 +143,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     fun recVoz(view: View) {
       //  setContentView(R.layout.activity_second)
+
         val enableVoice = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
         startActivityForResult(enableVoice, RESULT_SPEECH);
     }
