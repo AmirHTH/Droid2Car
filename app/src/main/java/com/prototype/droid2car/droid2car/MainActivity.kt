@@ -96,37 +96,34 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         var tag = ""
         when (item.itemId) {
             R.id.nav_ordenes -> {
-
-                 btn_mic.visibility = View.VISIBLE
-
-
+                btn_mic.visibility = View.VISIBLE
                 tag = fragmentOrdenes.tag
                 fragment = fragmentManager.findFragmentByTag(tag) ?: fragmentOrdenes()
                 fragment.arguments
             }
             R.id.nav_estancias -> {
-
-
                 btn_mic.visibility = View.GONE
                 tag = fragmentPlano.tag
-                 fragment = fragmentManager.findFragmentByTag(tag) ?: fragmentPlano()
+                fragment = fragmentManager.findFragmentByTag(tag) ?: fragmentPlano()
                 fragment.arguments
-
-
-
-
-
-                 Log.i("Content main main "," Main layout ");
-
             }
             R.id.nav_historico -> {
-
+                btn_mic.visibility = View.GONE
+                tag = fragmentHistorico.tag
+                fragment = fragmentManager.findFragmentByTag(tag) ?: fragmentHistorico()
+                fragment.arguments
             }
             R.id.nav_configuracion -> {
-
+                btn_mic.visibility = View.GONE
+                tag = fragmentConfiguracion.tag
+                fragment = fragmentManager.findFragmentByTag(tag) ?: fragmentConfiguracion()
+                fragment.arguments
             }
             R.id.nav_share -> {
-
+                btn_mic.visibility = View.GONE
+                tag = fragmentRedes.tag
+                fragment = fragmentManager.findFragmentByTag(tag) ?: fragmentRedes()
+                fragment.arguments
             }
 
         }
